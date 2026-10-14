@@ -1,0 +1,40 @@
+name: ahuriri-physio
+
+topology:
+  kinds:
+    cisco_iol:
+      # Check your local tags with: docker images | grep iol
+      image: vrnetlab/cisco_iol:17.18.02
+    linux:
+      image: ghcr.io/hellt/network-multitool
+
+  nodes:
+    R1:
+      kind: cisco_iol
+      startup-config: configs/R1.partial.cfg
+
+    SW1:
+      kind: cisco_iol
+      type: L2
+      image: vrnetlab/cisco_iol:L2-17.18.02
+      startup-config: configs/SW1.partial.cfg
+
+    ISP:
+      kind: cisco_iol
+      startup-config: configs/ISP.partial.cfg
+
+    PC-STAFF:
+      kind: linux
+      exec:
+        - ip route del default
+
+    PC-RECEP:
+      kind: linux
+      exec:
+        - ip route del default
+
+  links:
+    - endpoints: ["R1:Ethernet0/1", "SW1:Ethernet0/1"]
+    - endpoints: ["R1:Ethernet0/2", "ISP:Ethernet0/1"]
+    - endpoints: ["SW1:Ethernet0/2", "PC-STAFF:eth1"]
+    - endpoints: ["SW1:Ethernet0/3", "PC-RECEP:eth1"]

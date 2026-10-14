@@ -1,0 +1,29 @@
+# --- containerlab runtime (generated on deploy, contains keys + saved configs) ---
+clab-*/
+.*.clab.yml.bak
+*.clab.yml.bak
+
+# --- licensed images and licence files (never share) ---
+*.bin
+*.iol
+*.image
+*.tar
+*.tar.gz
+*.qcow2
+*.vmdk
+*.iso
+iourc
+*.lic
+
+# --- secrets ---
+*.key
+*.pem
+id_rsa*
+id_ed25519*
+.env
+*.env
+
+# --- OS / editor clutter ---
+.DS_Store
+.vscode/
+*.swp
